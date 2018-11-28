@@ -45,7 +45,7 @@ pipeline{
     // the build config which new-app just created.
     
     def bc = created.narrow('bc')
-    openshift.startBuild('bc')
+    openshift.startBuild("bc","nodejs-ex")
     // Let's output the build logs to the Jenkins console. bc.logs()
     // would run `oc logs bc/ruby-hello-world`, but that might only
     // output a partial log if the build is in progress. Instead, we will
