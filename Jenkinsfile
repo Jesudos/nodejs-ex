@@ -71,7 +71,7 @@ pipeline{
     // If there was a chance here that more than one DC was created, we should use objects()
     // which would return a List of Groovy objects; however, in this example, there
     // should only be one.
-    //def dc = dcs.object()
+    def dc = dcs.object()
 
     // dc is not a Selector -- It is a Groovy Map which models the content of the DC
     // new-app created at the time object() was called. Changes to the model are not
