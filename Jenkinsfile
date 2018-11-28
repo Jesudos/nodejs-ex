@@ -17,9 +17,9 @@ pipeline{
                 script{
                  openshift.withCluster() {
                     openshift.withProject() {
-                       openshift.selector("all", [ app : templateName ]).delete() 
-                  if (openshift.selector("secrets", templateName).exists()) { 
-                    openshift.selector("secrets", templateName).delete()
+                       openshift.selector("all", [ app : 'nodejs-ex' ]).delete() 
+                  if (openshift.selector("secrets", 'nodejs-ex').exists()) { 
+                    openshift.selector("secrets", 'nodejs-ex').delete()
                   }
                     }
                  }
