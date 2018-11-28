@@ -1,5 +1,5 @@
 pipeline{
-  node('nodejs'){
+  
             stages{
             stage('preamble'){
                 openshift.withCluster() {
@@ -76,5 +76,5 @@ pipeline{
     
         }
     
-        }
+        
 }
