@@ -30,7 +30,7 @@ pipeline{
             }
             stage('Create App'){
               steps{
-                scripts{
+                script{
                 openshift.withCluster() {
                     openshift.withProject() {
                         // Run `oc new-app https://github.com/openshift/ruby-hello-world` . It
