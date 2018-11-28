@@ -57,7 +57,7 @@ Another option is running the OpenShift Origin Docker container image from [Dock
 
 #### Downloading the Binary
 
-Red Hat periodically publishes OpenShift Origin Server binaries for Linux, which you can download on the OpenShift Origin GitHub [Release](https://github.com/openshift/origin/releases) page. Instructions on how to install and launch the Openshift Origin Server from binary are described in [Getting Started for Administrators](https://docs.okd.io/latest/getting_started/administrators.html#downloading-the-binary).
+Red Hat periodically publishes OpenShift Origin Server binaries for Linux, which you can download on the OpenShift Origi GitHub [Release](https://github.com/openshift/origin/releases) page. Instructions on how to install and launch the Openshift Origin Server from binary are described in [Getting Started for Administrators](https://docs.okd.io/latest/getting_started/administrators.html#downloading-the-binary).
 
 #### Running an Ansible playbook
 
