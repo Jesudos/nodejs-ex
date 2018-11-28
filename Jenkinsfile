@@ -1,5 +1,7 @@
 pipeline{
-  
+  agent{
+      label 'nodejs'
+  }
             stages{
             stage('preamble'){
               steps{
