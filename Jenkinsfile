@@ -1,8 +1,6 @@
 pipeline{
-def templateName = 'nodejs-ex'
-try{
-    timeout(time: 20, unit: 'MINUTES') {
-        node('nodejs'){
+  node('nodejs'){
+            stages{
             stage('preamble'){
                 openshift.withCluster() {
                     openshift.withProject() {
@@ -77,12 +75,6 @@ try{
     
     
         }
-    }
-}
-catch (err) {
-   echo "in catch block"
-   echo "Caught: ${err}"
-   currentBuild.result = 'FAILURE'
-   throw err
-}   
+    
+        }
 }
