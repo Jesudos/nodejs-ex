@@ -45,7 +45,7 @@ pipeline{
     // the build config which new-app just created.
     
     def bc = created.narrow('bc')
-
+    openshift.startBuild('bc')
     // Let's output the build logs to the Jenkins console. bc.logs()
     // would run `oc logs bc/ruby-hello-world`, but that might only
     // output a partial log if the build is in progress. Instead, we will
@@ -53,7 +53,7 @@ pipeline{
     // Arguments to logs get passed directly on to the oc command line.
                       //doesn't work for pipeline strategy
     //def result = bc.logs('-f')
-
+     
   
 
     // You can even see exactly what oc command was executed.
