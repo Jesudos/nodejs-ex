@@ -26,14 +26,14 @@
   * [Compatibility](#compatibility)
   * [License](#license)
 
-<!-- tocstop -->
+<!-- tocstop --> 
 
 ## Node.js sample app on OpenShift!
 -----------------
 
 This example will serve a welcome page and the current hit count as stored in a database.
 
-### OpenShift Origin v3 setup
+### OpenShift Origin v3 setup - 
 
 There are four methods to get started with OpenShift v3:
 
