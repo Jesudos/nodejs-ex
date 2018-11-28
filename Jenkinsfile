@@ -43,6 +43,7 @@ pipeline{
 
     // We can create a Selector from the larger set which only selects
     // the build config which new-app just created.
+    
     def bc = created.narrow('bc')
 
     // Let's output the build logs to the Jenkins console. bc.logs()
@@ -50,16 +51,17 @@ pipeline{
     // output a partial log if the build is in progress. Instead, we will
     // pass '-f' to `oc logs` to follow the build until it terminates.
     // Arguments to logs get passed directly on to the oc command line.
-    def result = bc.logs('-f')
+                      //doesn't work for pipeline strategy
+    //def result = bc.logs('-f')
 
   
 
     // You can even see exactly what oc command was executed.
-    echo "Logs executed: ${result.actions[0].cmd}"
+    //echo "Logs executed: ${result.actions[0].cmd}"
 
     // And even obtain the standard output and standard error of the command.
-    def logsString = result.actions[0].out
-    def logsErr = result.actions[0].err
+    //def logsString = result.actions[0].out
+    //def logsErr = result.actions[0].err
     
     echo "Deployment configuration"
     
