@@ -65,13 +65,13 @@ pipeline{
     
     echo "Deployment configuration"
     
-    def dcs = created.narrow('dc')
+    def dc = created.narrow('dc')
     // dcs is a Selector which selects the deployment config created by new-app. How do
     // we get more information about this DC? Turn it into a Groovy object using object().
     // If there was a chance here that more than one DC was created, we should use objects()
     // which would return a List of Groovy objects; however, in this example, there
     // should only be one.
-    def dc = dcs.object()
+  
 
     // dc is not a Selector -- It is a Groovy Map which models the content of the DC
     // new-app created at the time object() was called. Changes to the model are not
