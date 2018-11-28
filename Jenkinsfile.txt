@@ -1,0 +1,88 @@
+pipeline{
+def templateName = 'nodejs-ex'
+try{
+    timeout(time: 20, unit: 'MINUTES') {
+        node('nodejs'){
+            stage('preamble'){
+                openshift.withCluster() {
+                    openshift.withProject() {
+                        echo "Using project: ${openshift.project()}"
+                    }
+                }
+            }
+            stage('cleanup'){
+                 openshift.withCluster() {
+                    openshift.withProject() {
+                       openshift.selector("all", [ app : templateName ]).delete() 
+                  if (openshift.selector("secrets", templateName).exists()) { 
+                    openshift.selector("secrets", templateName).delete()
+                  }
+                    }
+                }
+            }
+            stage('Create App'){
+                openshift.withCluster() {
+                    openshift.withProject() {
+                        // Run `oc new-app https://github.com/openshift/ruby-hello-world` . It
+    // returns a Selector which will select the objects it created for you.
+    def created = openshift.newApp( 'https://github.com/Jesudos/nodejs-ex.git' )
+    
+    // This Selector exposes the same operations you have already seen.
+    // (And many more that you haven't!).
+    // created.describe()
+
+    // We can create a Selector from the larger set which only selects
+    // the build config which new-app just created.
+    def bc = created.narrow('bc')
+
+    // Let's output the build logs to the Jenkins console. bc.logs()
+    // would run `oc logs bc/ruby-hello-world`, but that might only
+    // output a partial log if the build is in progress. Instead, we will
+    // pass '-f' to `oc logs` to follow the build until it terminates.
+    // Arguments to logs get passed directly on to the oc command line.
+    def result = bc.logs('-f')
+
+  
+
+    // You can even see exactly what oc command was executed.
+    echo "Logs executed: ${result.actions[0].cmd}"
+
+    // And even obtain the standard output and standard error of the command.
+    def logsString = result.actions[0].out
+    def logsErr = result.actions[0].err
+    
+    echo "Deployment configuration"
+    
+    def dcs = created.narrow('dc')
+    // dcs is a Selector which selects the deployment config created by new-app. How do
+    // we get more information about this DC? Turn it into a Groovy object using object().
+    // If there was a chance here that more than one DC was created, we should use objects()
+    // which would return a List of Groovy objects; however, in this example, there
+    // should only be one.
+    def dc = dcs.object()
+
+    // dc is not a Selector -- It is a Groovy Map which models the content of the DC
+    // new-app created at the time object() was called. Changes to the model are not
+    // reflected back to the API server, but the DC's content is at our fingertips.
+    echo "new-app created a ${dc.kind} with name ${dc.metadata.name}"
+    echo "The object has labels: ${dc.metadata.labels}"
+    
+    echo "Expose service"
+    
+    created.narrow('svc').expose()
+
+                    }
+                }
+            }
+    
+    
+        }
+    }
+}
+catch (err) {
+   echo "in catch block"
+   echo "Caught: ${err}"
+   currentBuild.result = 'FAILURE'
+   throw err
+}   
+}
