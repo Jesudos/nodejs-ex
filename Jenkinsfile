@@ -2,13 +2,19 @@ pipeline{
   
             stages{
             stage('preamble'){
+              steps{
+                script{
                 openshift.withCluster() {
                     openshift.withProject() {
                         echo "Using project: ${openshift.project()}"
                     }
                 }
+                    }
+                }
             }
             stage('cleanup'){
+              steps{
+                script{
                  openshift.withCluster() {
                     openshift.withProject() {
                        openshift.selector("all", [ app : templateName ]).delete() 
@@ -16,9 +22,13 @@ pipeline{
                     openshift.selector("secrets", templateName).delete()
                   }
                     }
+                 }
+                }
                 }
             }
             stage('Create App'){
+              steps{
+                scripts{
                 openshift.withCluster() {
                     openshift.withProject() {
                         // Run `oc new-app https://github.com/openshift/ruby-hello-world` . It
@@ -68,7 +78,8 @@ pipeline{
     echo "Expose service"
     
     created.narrow('svc').expose()
-
+                    }
+                }
                     }
                 }
             }
